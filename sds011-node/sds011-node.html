@@ -1,6 +1,6 @@
 <script type="text/javascript">
   RED.nodes.registerType('rpi-sds011', {
-    category: 'Raspberry Pi',
+    category: 'Air quality sensors',
     defaults: {
       name: {value: 'SDS011'},
       port: {value: '/dev/serial0', required: true},
@@ -19,11 +19,11 @@
 
 <script type="text/x-red" data-template-name="rpi-sds011">
   <div class="form-row">
-    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     <input type="text" id="node-input-name" placeholder="Name">
   </div>
   <div class="form-row">
-    <label for="node-input-port"><i class="icon-tag"></i>Device (e.g.RPi3: /dev/serial0)</label>
+    <label for="node-input-port"><i class="fa fa-pencil"></i>Device (e.g.RPi: /dev/serial0)</label>
     <input type="text" id="node-input-port" placeholder="/dev/serial0">
   </div>
 </script>
@@ -50,24 +50,53 @@
       </dl>
     </li>
   </ol>
-  <h3>Input</h3>
+  <h3>Inputs</h3>
   <ol class="node-ports">
     <li>Commands
       <dl class="message-properties">
-        <dt>payload: <span class="property-type">json | string</span></dt>
+        <dt>payload: <span class="property-type">string</span></dt>
         <dd>
-          setDataReportingMode(parameter);
-          getDataReportingMode();
-          queryData();
-          setDeviceId(parameter);
-          setStatus(parameter);
-          getStatus();
-          setWorkingPeriod(parameter);
-          setContinuousMode()
-          getWorkingPeriod();
-          checkFirmwareVersion();
+          setActive <br/>
+          setQuery <br/>
+          queryData <br/>
+          getDataReportingMode <br/>
+          <br/>
+          setWorkingPeriod(parameter) <br/>
+          getWorkingPeriod <br/>
+          setContinuousMode <br/>
+          <br/>
+          checkFirmwareVersion <br/>
+          <br/>
+          getStatus <br/>
+          setStatus(parameter) <br/>
+          work <br/>
+          sleep <br/>
+          <br/>
+          setDeviceId<br/>
         </dd>
+        
+      <dt class="optional">payload.command<span class="property-type">string</span></dt>
+      <dd>Parameter for commands that need parameter</dd>
       </dl>
     </li>
   </ol>
+  
+  <h3>Details</h3>
+    <p><code>msg.payload</code> contains the commands you want to send to SDS011 Sensor. Most commands can be send without a paramter in payload.parameter. </p>
+    <p><code>setActive</code> SDS011 actively reports measured values. This is factory default value and recommended mode. Note: This setting is persistent and remains after power loss.</p>
+    <p><code>setQuery</code> you have to send <code>queryData</code> to get measurements.</p>
+    <p><code>getDataReportingMode</code> Query current sensor mode.</p>
+    
+    <p><code>setWorkingPeriod</code> Time in minutes the sensor will wake up and reports data. Note: Sensor needs 30 seconds to have stable values. In active reporting mode, sensor wakes up, measures and after 30 seconds data is reported. So when setting to 3 minutes, sensor will sleep 2.5 minutes and then measure for 30 seconds and report one value. Recommended value 3 minutes. You pass this value in <code>msg.payload.parameter</code>.</p>
+    <p><code>getWorkingPeriod</code> Query current working period.</p>
+    <p><code>setContinuousMode</code> Set continious mode. Sensor runs all the time and reports every second one measurement.</p>
+    <p><code>checkFirmwareVersion</code> Prints the firmware version oft the SDS011 sensor. Firmware version is also printed with every command.</p>
+    <p><code>getStatus</code> Returns if sensor is currently sleeping or working.</p>
+    <p><code>setStatus</code> Send either work or sleep in <code>msg.payload.parameter</code>. Note: After sending to sleep SDS011 needed power cycle to wake up again. So use with care.</p>
+    <p><code>sleep</code> Sends sensor to sleep immediately. Note: After sending to sleep SDS011 needed power cycle to wake up again. So use with care.</p>
+    <p><code>work</code> Should wake up the sensor after sending to sleep. But didn't work, see above.</p>
+    <p><code>setDeviceId</code> DeviceId / serialnumber can be set. This is permanent after powercycle. Please see datasheet "Laser Dust Sensor Control Protocol" for details. Not recommended to use.</p>
+    
+    
+    
 </script>
