@@ -1,17 +1,17 @@
 {
-  "name": "node-red-contrib-sds011",
-  "version": "1.0.0",
-  "description": "Node-RED node to enable a communication with the SDS011 sensor which is connected via UART/serial connection. This node was designed with the RPi in mind but should work with any serial port.",
+  "name": "node-red-contrib-sds011-dust-sensor",
+  "version": "1.0.2",
+  "description": "Node-RED node to enable a communication with the SDS011 sensor which is connected via UART/serial connection.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikhayainkomishi/node-red-contrib-sds011.git"
+    "url": "git+https://github.com/JsBergbau/node-red-contrib-sds011-dust-sensor.git"
   },
   "dependencies": {
-    "serialport": "^6.1.1"
+    "serialport": "^9.2.0"
   },
   "keywords": [
     "sds011",
@@ -22,16 +22,27 @@
     "air",
     "smog",
     "particulates",
-    "node-red"
+    "node-red",
+    "airquality",
+    "dust"
   ],
-  "author": "Ikhaya Inkomishi",
+  "contributors": [
+    "Ikhaya Inkomishi",
+    "JsBergbau"
+  ],
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/ikhayainkomishi/node-red-contrib-sds011/issues"
+    "url": "https://github.com/JsBergbau/node-red-contrib-sds011-dust-sensor/issues"
   },
   "node-red": {
+    "version": ">=2.0.0",
     "nodes": {
-      "rpi-sds011": "sds011-node/sds011-node.js"
+      "SDS011": "sds011-node/sds011-node.js"
     }
-  }
+  },
+   "engines": {
+   "node": ">=12.0.0"
+ },
+  "homepage": "https://github.com/JsBergbau/node-red-contrib-sds011-dust-sensor#readme",
+  "author": "Ikhaya Inkomishi"
 }
